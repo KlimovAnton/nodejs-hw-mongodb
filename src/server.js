@@ -37,14 +37,14 @@ export const setupServer = () => {
       });
     });
 
-    app.get('/contacts/:contactId', async (req, res, next) => {
+    app.get('/contacts/:contactId', async (req, res) => {
       const { contactId } = req.params;
       const contact = await getContactById(contactId);
 
         if(!contact) {
           res.status(404).json({
             status: 404,
-            message: `${contactId}Student not found`
+            message: `${contactId} Student not found`
           });
           return;
         }
