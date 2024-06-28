@@ -3,8 +3,8 @@ import { getALLContacts, getContactById, createContact, deleteContact, updateCon
 import { parsePaginationParams } from '../utils/parsePaginationParams.js';
 
 export const getContactsController = async (req, res, next) => {
-    try {
-      const { page, perPage } = parsePaginationParams(req.params);
+      console.log(req);
+      const { page, perPage } = parsePaginationParams(req.query);
       const contacts = await getALLContacts({
         page,
         perPage,
@@ -15,9 +15,6 @@ export const getContactsController = async (req, res, next) => {
       data: contacts,
       message: "Successfully found contacts!"
     });
-    } catch (error) {
-      next(error);
-    }
   };
 
 export const getContactByIdController = async (req, res, next) => {
