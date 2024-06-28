@@ -1,9 +1,14 @@
 import createHttpError from 'http-errors';
 import { getALLContacts, getContactById, createContact, deleteContact, updateContact } from "../services/contacts.js";
+import { parsePaginationParams } from '../utils/parsePaginationParams.js';
 
 export const getContactsController = async (req, res, next) => {
     try {
-      const contacts = await getALLContacts();
+      const { page, perPage } = parsePaginationParams(req.params);
+      const contacts = await getALLContacts({
+        page,
+        perPage,
+      });
 
       res.json({
       status: 200,
