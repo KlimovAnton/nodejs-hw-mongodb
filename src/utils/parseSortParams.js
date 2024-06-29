@@ -10,7 +10,6 @@ const parseSortOrder = (sortOrder) => {
 
 const parseSortBy = (sortBy) => {
     const keysOfStudent = [
-        '_id',
         'name',
     ];
 
