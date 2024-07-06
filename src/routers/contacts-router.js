@@ -6,10 +6,10 @@ import validateBody from '../utils/validateBody.js';
 
 const routerContacts = Router();
 
-routerContacts.get('/contacts', ctrlWrapper(getContactsController));
-routerContacts.get('/contacts/:contactId', ctrlWrapper(getContactByIdController));
-routerContacts.post('/contacts', validateBody(contactCreateSchema), ctrlWrapper(createContactController));
-routerContacts.delete('/contacts/:contactId', ctrlWrapper(deleteContactController));
-routerContacts.patch('/contacts/:contactId', validateBody(contactUpdateSchema), ctrlWrapper(patchContactController));
+routerContacts.get('/', ctrlWrapper(getContactsController));
+routerContacts.get('/:contactId', ctrlWrapper(getContactByIdController));
+routerContacts.post('/', validateBody(contactCreateSchema), ctrlWrapper(createContactController));
+routerContacts.delete('/:contactId', ctrlWrapper(deleteContactController));
+routerContacts.patch('/:contactId', validateBody(contactUpdateSchema), ctrlWrapper(patchContactController));
 
 export default routerContacts;
