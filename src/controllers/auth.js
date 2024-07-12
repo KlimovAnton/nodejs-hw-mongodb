@@ -1,4 +1,4 @@
-import { loginUser, registerUser, logoutUser, refreshUsersSession } from '../services/auth.js';
+import { loginUser, registerUser, logoutUser, refreshUsersSession, requestResetToken } from '../services/auth.js';
 import { ONE_DAY } from '../constants/contacts-constants.js';
 
 export const registerUserController = async (req, res) => {
@@ -53,21 +53,31 @@ const setupSession = (res, session) => {
       httpOnly: true,
       expires: new Date(Date.now() + ONE_DAY),
     });
-  };
+};
 
-  export const refreshUserSessionController = async (req, res) => {
-    const session = await refreshUsersSession({
-      sessionId: req.cookies.sessionId,
-      refreshToken: req.cookies.refreshToken,
-    });
+export const refreshUserSessionController = async (req, res) => {
+  const session = await refreshUsersSession({
+    sessionId: req.cookies.sessionId,
+    refreshToken: req.cookies.refreshToken,
+  });
 
-    setupSession(res, session);
+  setupSession(res, session);
 
-    res.json({
-      status: 200,
-      message: 'Successfully refreshed a session!',
-      data: {
-        accessToken: session.accessToken,
-      },
-    });
-  };
+  res.json({
+    status: 200,
+    message: 'Successfully refreshed a session!',
+    data: {
+      accessToken: session.accessToken,
+    },
+  });
+};
+
+export const requestResetEmailController = async (req, res) => {
+  await requestResetToken(req.body.email);
+  res.json({
+    status: 200,
+    message: 'Reset password email was successfully sent!',
+    data: {},
+  });
+};
+

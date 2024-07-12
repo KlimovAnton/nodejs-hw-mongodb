@@ -1,7 +1,11 @@
 import { randomBytes } from 'crypto';
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 import { UsersCollection } from "../db/models/user.js";
 import createHttpError from 'http-errors';
+import { env } from '../utils/env.js';
+import { SMTP } from '../constants/contacts-constants.js';
+import { sendEMail } from '../utils/sendMail.js';
 
 import { FIFTEEN_MINUTES, ONE_DAY } from '../constants/contacts-constants.js';
 import { SessionsCollection } from '../db/models/session.js';
@@ -59,28 +63,53 @@ const createSession = () => {
 };
 
 export const refreshUsersSession = async ({ sessionId, refreshToken }) => {
-    const session = await SessionsCollection.findOne({
-      _id: sessionId,
-      refreshToken,
-    });
+  const session = await SessionsCollection.findOne({
+    _id: sessionId,
+    refreshToken,
+  });
 
-    if (!session) {
-      throw createHttpError(401, 'Session not found');
-    }
+  if (!session) {
+    throw createHttpError(401, 'Session not found');
+  }
 
-    const isSessionTokenExpired =
-      new Date() > new Date(session.refreshTokenValidUntil);
+  const isSessionTokenExpired =
+    new Date() > new Date(session.refreshTokenValidUntil);
 
-    if (isSessionTokenExpired) {
-      throw createHttpError(401, 'Session token expired');
-    }
+  if (isSessionTokenExpired) {
+    throw createHttpError(401, 'Session token expired');
+  }
 
-    const newSession = createSession();
+  const newSession = createSession();
 
-    await SessionsCollection.deleteOne({ _id: sessionId, refreshToken });
+  await SessionsCollection.deleteOne({ _id: sessionId, refreshToken });
 
-    return await SessionsCollection.create({
-      userId: session.userId,
-      ...newSession,
-    });
-  };
+  return await SessionsCollection.create({
+    userId: session.userId,
+    ...newSession,
+  });
+};
+
+export const requestResetToken = async (email) => {
+  const user = await UsersCollection.findOne({ email });
+  if(!user) {
+    throw createHttpError(404, "User not found");
+  }
+
+  const resetToken = jwt.sign(
+    {
+      sub: user._id,
+      email,
+    },
+    env('JWT_SECRET'),
+    {
+      expiresIn: '15m',
+    },
+  );
+
+  await sendEMail({
+    from: env(SMTP.SMTP_FROM),
+    to: email,
+    subject: 'Reset your password',
+    html: `<p>Click <a href="${resetToken}">here</a> to reset your password!</p>`,
+  });
+};
