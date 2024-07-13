@@ -7,6 +7,7 @@ import { env } from './utils/env.js';
 import router from './routers/index.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
 import { errorHandler } from './middlewares/errorHandler.js';
+import { UPLOAD_DIR } from './constants/contacts-constants.js';
 
 const PORT = Number(env('PORT', '3000'));
 
@@ -31,6 +32,8 @@ export const setupServer = () => {
           message: 'Hello World!',
       });
     });
+
+    app.use('/uploads', express.static(UPLOAD_DIR));
 
     app.use(router);
 
