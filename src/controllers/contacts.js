@@ -53,7 +53,7 @@ export const getContactByIdController = async (req, res, next) => {
 
 export const createContactController = async (req, res) => {
   const photo = req.file;
-  
+
   let photoUrl;
 
   if (photo) {
@@ -70,7 +70,7 @@ export const createContactController = async (req, res) => {
     photo: photoUrl,
   };
 
-  const contact = await createContact(contactData, req.body);
+  const contact = await createContact(contactData);
 
   res.status(201).json({
     status: 201,
