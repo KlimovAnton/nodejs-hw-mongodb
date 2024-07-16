@@ -11,6 +11,6 @@ routerAuth.post('/login', validateBody(loginUserSchema), ctrlWrapper(loginUserCo
 routerAuth.post('/logout', ctrlWrapper(logoutUserController));
 routerAuth.post('/refresh', ctrlWrapper(refreshUserSessionController));
 routerAuth.post('/send-reset-email', validateBody(requestResetEmailSchema), ctrlWrapper(requestResetEmailController));
-routerAuth.post('/reset-password', validateBody(resetPasswordSchema), ctrlWrapper(resetPasswordController));
+routerAuth.post('/reset-pwd', validateBody(resetPasswordSchema), ctrlWrapper(resetPasswordController));
 
 export default routerAuth;
