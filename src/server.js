@@ -2,6 +2,7 @@ import express from 'express';
 import pino from 'pino-http';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
+import { swaggerDocs } from './middlewares/swaggerDocs.js';
 
 import { env } from './utils/env.js';
 import router from './routers/index.js';
@@ -34,6 +35,8 @@ export const setupServer = () => {
     });
 
     app.use('/uploads', express.static(UPLOAD_DIR));
+
+    app.use('/api-docs', swaggerDocs());
 
     app.use(router);
 
