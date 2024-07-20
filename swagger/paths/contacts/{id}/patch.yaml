@@ -14,7 +14,7 @@ requestBody:
           name:
             description: "Contact's name"
             type: string
-            example: 'Yurii Kachan'
+            example: 'John Frusciante'
           phoneNumber:
             description: "Contact's phoneNumber"
             type: string
@@ -37,6 +37,12 @@ requestBody:
             description: "Contact's photo"
             type: string
             example: <https://res.cloudinary.com/uqwgdu/image/upload/test.jpg>
+          file:
+            description: "File to upload"
+            type: array
+            items:
+              type: string
+              format: binary
 parameters:
   - in: path
     name: id
