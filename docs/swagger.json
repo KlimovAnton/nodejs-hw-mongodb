@@ -107,7 +107,7 @@
                   "name": {
                     "description": "Contact's name",
                     "type": "string",
-                    "example": "Yurii Kachan"
+                    "example": "John Frusciante"
                   },
                   "phoneNumber": {
                     "description": "Contact's phoneNumber",
@@ -143,6 +143,14 @@
                     "description": "Contact's photo",
                     "type": "string",
                     "example": "<https://res.cloudinary.com/uqwgdu/image/upload/test.jpg>"
+                  },
+                  "file": {
+                    "description": "File to upload",
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "binary"
+                    }
                   }
                 }
               }
@@ -386,7 +394,7 @@
                   "name": {
                     "description": "Contact's name",
                     "type": "string",
-                    "example": "Yurii Kachan"
+                    "example": "John Frusciante"
                   },
                   "phoneNumber": {
                     "description": "Contact's phoneNumber",
@@ -420,6 +428,14 @@
                       "name",
                       "phoneNumber"
                     ]
+                  },
+                  "file": {
+                    "description": "File to upload",
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "binary"
+                    }
                   }
                 }
               }
