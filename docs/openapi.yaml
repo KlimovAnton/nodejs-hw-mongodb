@@ -12,7 +12,7 @@ tags:
     description: Operations about contacts
 servers:
   - url: http://localhost:3000
-  - url: https://contacts-app-mf1f.onrender.com
+  - url: https://nodejs-hw-mongodb-c8gx.onrender.com
 paths:
   /contacts/{id}:
     get:
