@@ -25,6 +25,7 @@ requestBody:
           email:
             description: "Contact's email"
             type: string
+            example: test@mail.com
           isFavourite:
             description: 'Is the contact favorite or not'
             type: boolean
@@ -33,7 +34,7 @@ requestBody:
             description: 'Contact type'
             type: string
             enum: ['work', 'home', 'personal']
-            example: home
+            example: personal
           photo:
             description: "File to upload"
             type: array

@@ -117,12 +117,7 @@
                   "email": {
                     "description": "Contact's email",
                     "type": "string",
-                    "example": "test@gmail,com",
-                    "enum": [
-                      "male",
-                      "female",
-                      "other"
-                    ]
+                    "example": "test@mail.com"
                   },
                   "isFavourite": {
                     "description": "Is the contact favorite or no",
@@ -398,7 +393,8 @@
                   },
                   "email": {
                     "description": "Contact's email",
-                    "type": "string"
+                    "type": "string",
+                    "example": "test@mail.com"
                   },
                   "isFavourite": {
                     "description": "Is the contact favorite or not",
@@ -413,7 +409,7 @@
                       "home",
                       "personal"
                     ],
-                    "example": "home"
+                    "example": "personal"
                   },
                   "photo": {
                     "description": "File to upload",
